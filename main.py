@@ -49,7 +49,7 @@ if __name__ == "__main__":
         coords[0] += 7
         coords[1] -= 64
         startCoord = tuple(coords)
-        OCR.dragRelative(startCoord, 295, 40)
+        OCR.dragRelative(startCoord, 295, 42)
 
         # Close card enlargement in Discord
         Discord.clickAtCoord(startCoord)
@@ -72,6 +72,7 @@ if __name__ == "__main__":
         Discord.clickAtImg("dc_input.PNG")
         Discord.write(output)
         Discord.hotkey("enter")
+        time.sleep(1)
 
         # Check whether card is claimed successfully
         try:
@@ -80,4 +81,19 @@ if __name__ == "__main__":
         except:
             print("Failed to claim the card!")
         print("Spawns: " + str(countSpawned) + " / Claimed: " + str(countClaimed))
+
+        # Workaround for the EasyScreenOCR limit
+        if countSpawned % 20 == 0:
+            OCR.clickAtImg("taskbar_expand.PNG")
+            OCR.clickAtImg("ocr_icon.PNG", "right")
+            OCR.clickAtImg("ocr_exit.PNG")
+            OCR.clickAtImg("ocr_crack.PNG")
+            OCR.clickAtImg("ocr_crack.PNG")
+            time.sleep(0.5)
+            OCR.hotkey("enter")
+            OCR.hotkey("enter")
+            OCR.clickAtImg("ocr_shortcut.PNG")
+            OCR.clickAtImg("ocr_shortcut.PNG")
         time.sleep(120)
+
+

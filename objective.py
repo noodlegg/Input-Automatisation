@@ -33,7 +33,7 @@ class Objective(object):
 
         return coordinates
 
-    def clickAtCoord(self, coordinates):
+    def clickAtCoord(self, coordinates, button="left"):
         # Pre-condition: coordinates must be given
         if (coordinates == None):
             raise Exception(self._name + ".clickAt() pre-condition failed, coordinates == None")
@@ -43,10 +43,10 @@ class Objective(object):
         if (coordinates[0] > screenSize[0]) or (coordinates[1] > screenSize[1]):
             raise Exception(self._name + ".clickAt() pre-condition failed, cannot reach " + coordinates[slice(2)] + " on " + screenSize)
 
-        pyautogui.click(x=coordinates[0], y=coordinates[1])
+        pyautogui.click(x=coordinates[0], y=coordinates[1], button=button)
 
-    def clickAtImg(self, img):
-        self.clickAtCoord(pyautogui.center(self.locateImg(img)))
+    def clickAtImg(self, img, button="left"):
+        self.clickAtCoord(pyautogui.center(self.locateImg(img)), button)
 
     def hotkey(self, *arg):
         # Pre-condition: at least one argument passed
