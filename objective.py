@@ -29,7 +29,7 @@ class Objective(object):
         # Post-condition: returns 4-integer tuple (left, top, width, height)
         coordinates = pyautogui.locateOnScreen(image, confidence=0.8)
         if coordinates == None:
-            raise Exception(self._name + "./locateImg() failed, could not detect " + path + " on screen")
+            raise Exception(self._name + ".locateImg() failed, could not detect " + path + " on screen")
 
         return coordinates
 
@@ -79,6 +79,8 @@ class Objective(object):
             raise Exception(self._name + ".clickAt() pre-condition failed, cannot reach " + startCoord[slice(2)] + " on " + screenSize)
 
         pyautogui.moveTo(x=startCoord[0], y=startCoord[1])
-        pyautogui.drag(xDist, yDist, 0.3, button='left')
+        pyautogui.drag(xDist, yDist, 0.4, button='left')
 
+    def scroll(self, clicks):
+        pyautogui.scroll(clicks)
 

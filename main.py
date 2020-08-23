@@ -17,10 +17,14 @@ countClaimed = 0
 if __name__ == "__main__":
     while True:
         # Type something in Discord chat
-        Discord.clickAtImg("dc_input.PNG")
-        Discord.write(".")
-        Discord.hotkey("enter")
-        time.sleep(1)
+        try:
+            Discord.clickAtImg("dc_input.PNG")
+            Discord.write(".")
+            Discord.hotkey("enter")
+            time.sleep(0.7)
+        except:
+            print("Couldn't find Discord input field!")
+            continue
 
         # Check whether card spawned
         try:
@@ -28,18 +32,17 @@ if __name__ == "__main__":
             countSpawned += 1
         except:
             print("No card spawn detected!")
-            time.sleep(60)
+            time.sleep(30)
             continue
             
         # Click on the card to enlarge
         Discord.clickAtCoord((startCoord[0]+100, startCoord[1]+100))
-        time.sleep(1)
+        time.sleep(0.5)
         try:
             startCoord = Discord.locateImg("dc_card.PNG")
         except:
             print("Did not detect enlarged card!")
             Discord.hotkey("esc")
-            time.sleep(2)
             continue
 
         # Screenshot the code using OCR
@@ -49,21 +52,21 @@ if __name__ == "__main__":
         coords[0] += 7
         coords[1] -= 64
         startCoord = tuple(coords)
-        OCR.dragRelative(startCoord, 295, 42)
+        OCR.dragRelative(startCoord, 295, 44)
 
         # Close card enlargement in Discord
         Discord.clickAtCoord(startCoord)
         Discord.hotkey("esc")
-        time.sleep(0.5)
+        time.sleep(1.2)
 
         # Retrieve code from OCR
-        try:
-            OCR.clickAtImg("ocr_read.PNG")
-            time.sleep(1.5)
-            OCR.clickAtImg("ocr_copy.PNG")
-        except:
-            print("Failed to click on OCR interface!")
-            continue
+        # try:
+        #     OCR.clickAtImg("ocr_read.PNG")
+        #     time.sleep(1)
+        #     OCR.clickAtImg("ocr_copy.PNG")
+        # except:
+        #     print("Failed to click on OCR interface!")
+        #     continue
         code = r.clipboard_get()
         # Only keep letters without spaces using RegEx
         code = re.sub('[^a-zA-Z]+', '', code)
@@ -94,6 +97,6 @@ if __name__ == "__main__":
             OCR.hotkey("enter")
             OCR.clickAtImg("ocr_shortcut.PNG")
             OCR.clickAtImg("ocr_shortcut.PNG")
-        time.sleep(120)
+        time.sleep(60)
 
 
